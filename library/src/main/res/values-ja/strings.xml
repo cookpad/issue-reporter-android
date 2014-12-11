@@ -1,0 +1,6 @@
+<resources>
+    <string name="notification_title">不具合を報告する</string>
+    <string name="notification_description">この通知を押すと%1$sの不具合を報告できます</string>
+    <string name="failed_to_take_screenshot">スクリーンショットの撮影に失敗しました</string>
+    <string name="wait_a_moment">少々お待ちください</string>
+</resources>
