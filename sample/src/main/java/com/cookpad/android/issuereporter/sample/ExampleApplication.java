@@ -3,14 +3,20 @@ package com.cookpad.android.issuereporter.sample;
 import android.app.Application;
 
 import com.cookpad.android.issuereporter.IssueReporter;
+import com.cookpad.android.issuereporter.ReportMail;
+import com.cookpad.android.issuereporter.SystemProfileBuilder;
 
 public class ExampleApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        String mailAddress = "support@example.com";
-        String subject = "Report an issue";
-        IssueReporter.initialize(this, mailAddress, subject);
+
+        ReportMail reportMail = new ReportMail.Builder()
+                .email("support@example.com")
+                .subject("Report an issue")
+                .body(new SystemProfileBuilder(this).build())
+                .build();
+        IssueReporter.initialize(this, reportMail);
     }
 
     @Override

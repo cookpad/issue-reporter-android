@@ -7,43 +7,35 @@ import android.support.v4.app.FragmentActivity;
 import com.cookpad.android.issuereporter.fragment.IssueReporterFragment;
 
 public class IssueReporter {
-    private static final Object LOCK = new Object();
-
     private static IssueReporter INSTANCE;
 
-    private final String mailAddress;
-    private final String subject;
-    private ActivityLifecycleCallbacksAdapter activityLifecycleCallbacksAdapter;
+    private ReportMail reportMail;
 
+    private ActivityLifecycleCallbacksAdapter activityLifecycleCallbacksAdapter;
     private ActivityLifecycleCallbacksAdapter.Callback callback = new ActivityLifecycleCallbacksAdapter.Callback() {
         @Override
         public void onCreated(Activity activity) {
             if (activity instanceof FragmentActivity) {
-                IssueReporterFragment.apply((FragmentActivity) activity, mailAddress, subject);
+                IssueReporterFragment.apply((FragmentActivity) activity, reportMail);
             }
         }
     };
 
-    public IssueReporter(Application application, String mailAddress, String subject) {
-        this.mailAddress = mailAddress;
-        this.subject = subject;
+    public IssueReporter(Application application, ReportMail reportMail) {
+        this.reportMail = reportMail;
         this.activityLifecycleCallbacksAdapter = new ActivityLifecycleCallbacksAdapter(application, callback);
     }
 
-    public static void initialize(Application application, String mailAddress, String subject) {
-        synchronized (LOCK) {
-            if (INSTANCE == null) {
-                INSTANCE = new IssueReporter(application, mailAddress, subject);
-            }
+    public static synchronized void initialize(Application application, ReportMail reportMail) {
+        if (INSTANCE == null) {
+            INSTANCE = new IssueReporter(application, reportMail);
         }
     }
 
-    public static void destroy(Application application) {
-        synchronized (LOCK) {
-            if (INSTANCE != null) {
-                INSTANCE.activityLifecycleCallbacksAdapter.destroy(application);
-                INSTANCE = null;
-            }
+    public static synchronized void destroy(Application application) {
+        if (INSTANCE != null) {
+            INSTANCE.activityLifecycleCallbacksAdapter.destroy(application);
+            INSTANCE = null;
         }
     }
 }

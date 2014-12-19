@@ -3,11 +3,11 @@ package com.cookpad.android.issuereporter.fragment;
 import com.cookpad.android.issuereporter.IIntentReceiveService;
 import com.cookpad.android.issuereporter.IIntentReceiveServiceCallback;
 import com.cookpad.android.issuereporter.R;
+import com.cookpad.android.issuereporter.ReportMail;
 import com.cookpad.android.issuereporter.ReportNotification;
 import com.cookpad.android.issuereporter.service.IntentReceiveService;
 import com.cookpad.android.issuereporter.task.ScreenshotTask;
 import com.cookpad.android.issuereporter.util.IntentUtils;
-import com.cookpad.android.issuereporter.SystemProfileBuilder;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -27,23 +27,22 @@ import java.io.File;
 import java.io.IOException;
 
 public class IssueReporterFragment extends BaseFragment {
-    public static final String EXTRA_MAIL_ADDRESS = "mail_address";
-    public static final String EXTRA_SUBJECT = "subject";
+    public static final String EXTRA_REPORT = "extra_report";
 
     private static final String FRAGMENT_TAG = IssueReporterFragment.class.getName();
 
-    public static IssueReporterFragment newInstance(String mailAddress, String subject) {
+    private ReportMail reportMail;
+
+    public static IssueReporterFragment newInstance(ReportMail reportMail) {
         Bundle args = new Bundle();
-        args.putString(EXTRA_MAIL_ADDRESS, mailAddress);
-        args.putString(EXTRA_SUBJECT, subject);
+        args.putParcelable(EXTRA_REPORT, reportMail);
 
         IssueReporterFragment fragment = new IssueReporterFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
-    public static IssueReporterFragment apply(FragmentActivity activity, String mailAddress,
-            String subject) {
+    public static IssueReporterFragment apply(FragmentActivity activity, ReportMail reportMail) {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         IssueReporterFragment fragment =
                 (IssueReporterFragment) fragmentManager.findFragmentByTag(FRAGMENT_TAG);
@@ -51,7 +50,7 @@ public class IssueReporterFragment extends BaseFragment {
             return fragment;
         }
 
-        fragment = newInstance(mailAddress, subject);
+        fragment = newInstance(reportMail);
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(fragment, IssueReporterFragment.class.getName());
         fragmentTransaction.commit();
@@ -59,16 +58,11 @@ public class IssueReporterFragment extends BaseFragment {
         return fragment;
     }
 
-    private String mailAddress;
-
-    private String subject;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        mailAddress = args.getString(EXTRA_MAIL_ADDRESS);
-        subject = args.getString(EXTRA_SUBJECT);
+        reportMail = args.getParcelable(EXTRA_REPORT);
     }
 
     @Override
@@ -132,8 +126,7 @@ public class IssueReporterFragment extends BaseFragment {
                 String authority = "com.cookpad.android.issuereporter.fileprovider";
                 Uri bitmapUri = FileProvider.getUriForFile(activity, authority, bitmapFile);
 
-                String body = new SystemProfileBuilder(getActivity()).build();
-                IntentUtils.sendMail(getActivity(), mailAddress, subject, body, bitmapUri);
+                IntentUtils.sendMail(getActivity(), reportMail, bitmapUri);
             }
 
             @Override
