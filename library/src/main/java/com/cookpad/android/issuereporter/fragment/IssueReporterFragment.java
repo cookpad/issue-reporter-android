@@ -3,6 +3,7 @@ package com.cookpad.android.issuereporter.fragment;
 import com.cookpad.android.issuereporter.IIntentReceiveService;
 import com.cookpad.android.issuereporter.IIntentReceiveServiceCallback;
 import com.cookpad.android.issuereporter.R;
+import com.cookpad.android.issuereporter.ReportNotification;
 import com.cookpad.android.issuereporter.service.IntentReceiveService;
 import com.cookpad.android.issuereporter.task.ScreenshotTask;
 import com.cookpad.android.issuereporter.util.IntentUtils;
@@ -31,16 +32,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class IssueReporterFragment extends BaseFragment {
-
     public static final String EXTRA_MAIL_ADDRESS = "mail_address";
-
     public static final String EXTRA_SUBJECT = "subject";
 
     private static final String FRAGMENT_TAG = IssueReporterFragment.class.getName();
-
-    private static final String NOTIFICATION_TAG = IssueReporterFragment.class.getName();
-
-    private static final int NOTIFICATION_ID = 0;
 
     public static IssueReporterFragment newInstance(String mailAddress, String subject) {
         Bundle args = new Bundle();
@@ -85,7 +80,7 @@ public class IssueReporterFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
 
-        showReportButton();
+        ReportNotification.show(getActivity());
 
         Intent intent = IntentReceiveService.createIntent(getActivity());
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
@@ -95,7 +90,7 @@ public class IssueReporterFragment extends BaseFragment {
     public void onPause() {
         super.onPause();
 
-        hideReportButton();
+        ReportNotification.cancel(getActivity());
 
         unbindService(connection);
     }
@@ -130,33 +125,6 @@ public class IssueReporterFragment extends BaseFragment {
             }
         }
     };
-
-    private void showReportButton() {
-        PendingIntent pendingIntent = IntentReceiveService.createPendingIntent(getActivity(), 0, 0);
-        Notification notification = buildNotification(pendingIntent);
-
-        NotificationManager notificationManager = getNotificationManager();
-        notificationManager.notify(NOTIFICATION_TAG, NOTIFICATION_ID, notification);
-    }
-
-    private void hideReportButton() {
-        NotificationManager notificationManager = getNotificationManager();
-        notificationManager.cancel(NOTIFICATION_TAG, NOTIFICATION_ID);
-    }
-
-    private Notification buildNotification(PendingIntent pendingIntent) {
-        String applicationName = Utils.getApplicationName(getActivity()).toString();
-        String title = getString(R.string.notification_title);
-        String description = getString(R.string.notification_description, applicationName);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity());
-        builder.setTicker(title);
-        builder.setContentTitle(title);
-        builder.setContentText(description);
-        builder.setSmallIcon(R.drawable.notification);
-        builder.setContentIntent(pendingIntent);
-        return builder.build();
-    }
 
     private void takeScreenshotAndSend() throws IOException {
         ProgressDialogFragment.show(getActivity(), R.string.wait_a_moment);
