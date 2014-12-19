@@ -20,7 +20,7 @@ public void onCreate() {
     ReportMail reportMail = new ReportMail.Builder()
             .email("support@example.com")
             .subject("Report an issue")
-            .body(new SystemProfileBuilder(this).build())
+            .body(new SystemProfile(this).toString())
             .build();
     IssueReporter.initialize(this, reportMail);
 }
