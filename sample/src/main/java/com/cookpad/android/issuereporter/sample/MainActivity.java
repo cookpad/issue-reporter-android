@@ -1,20 +1,27 @@
 package com.cookpad.android.issuereporter.sample;
 
-import com.cookpad.android.issuereporter.fragment.IssueReporterFragment;
-
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
 
 public class MainActivity extends ActionBarActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        String mailAddress = "support@example.com";
-        String subject = "Report an issue";
-        IssueReporterFragment.apply(this, mailAddress, subject);
+        setupViews();
     }
 
+    private void setupViews() {
+        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openOtherActivity();
+            }
+        });
+    }
+
+    private void openOtherActivity() {
+        OtherActivity.launch(this);
+    }
 }
