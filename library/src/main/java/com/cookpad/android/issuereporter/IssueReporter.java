@@ -18,7 +18,9 @@ public class IssueReporter {
     private ActivityLifecycleCallbacksAdapter.ActivityCreatedCallback callback = new ActivityLifecycleCallbacksAdapter.ActivityCreatedCallback() {
         @Override
         public void onCreated(Activity activity) {
-            IssueReporterFragment.apply((FragmentActivity) activity, mailAddress, subject);
+            if (activity instanceof FragmentActivity) {
+                IssueReporterFragment.apply((FragmentActivity) activity, mailAddress, subject);
+            }
         }
     };
 
