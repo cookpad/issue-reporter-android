@@ -15,7 +15,7 @@ public class IssueReporter {
     private final String subject;
     private ActivityLifecycleCallbacksAdapter activityLifecycleCallbacksAdapter;
 
-    private ActivityLifecycleCallbacksAdapter.ActivityCreatedCallback callback = new ActivityLifecycleCallbacksAdapter.ActivityCreatedCallback() {
+    private ActivityLifecycleCallbacksAdapter.Callback callback = new ActivityLifecycleCallbacksAdapter.Callback() {
         @Override
         public void onCreated(Activity activity) {
             if (activity instanceof FragmentActivity) {

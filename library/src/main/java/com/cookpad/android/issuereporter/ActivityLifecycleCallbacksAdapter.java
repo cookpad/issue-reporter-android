@@ -5,9 +5,9 @@ import android.app.Application;
 import android.os.Bundle;
 
 public class ActivityLifecycleCallbacksAdapter implements Application.ActivityLifecycleCallbacks {
-    private ActivityCreatedCallback callback;
+    private Callback callback;
 
-    public ActivityLifecycleCallbacksAdapter(Application application, ActivityCreatedCallback callback) {
+    public ActivityLifecycleCallbacksAdapter(Application application, Callback callback) {
         application.registerActivityLifecycleCallbacks(this);
         this.callback = callback;
     }
@@ -45,7 +45,7 @@ public class ActivityLifecycleCallbacksAdapter implements Application.ActivityLi
     public void onActivityStopped(Activity activity) {
     }
 
-    public static interface ActivityCreatedCallback {
+    public static interface Callback {
         public void onCreated(Activity activity);
     }
 }
