@@ -1,4 +1,4 @@
-package com.cookpad.android.issuereporter.util;
+package com.cookpad.android.issuereporter;
 
 import android.content.Context;
 import android.content.res.Configuration;

@@ -7,12 +7,8 @@ import com.cookpad.android.issuereporter.ReportNotification;
 import com.cookpad.android.issuereporter.service.IntentReceiveService;
 import com.cookpad.android.issuereporter.task.ScreenshotTask;
 import com.cookpad.android.issuereporter.util.IntentUtils;
-import com.cookpad.android.issuereporter.util.SystemProfileBuilder;
-import com.cookpad.android.issuereporter.util.Utils;
+import com.cookpad.android.issuereporter.SystemProfileBuilder;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -24,7 +20,6 @@ import android.os.RemoteException;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
 import android.widget.Toast;
 
