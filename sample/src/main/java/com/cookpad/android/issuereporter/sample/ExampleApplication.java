@@ -16,12 +16,12 @@ public class ExampleApplication extends Application {
                 .subject("Report an issue")
                 .body(new SystemProfile(this).toString())
                 .build();
-        IssueReporter.initialize(this, reportMail);
+        IssueReporter.start(this, reportMail);
     }
 
     @Override
     public void onTerminate() {
-        IssueReporter.destroy(this);
+        IssueReporter.stop(this);
         super.onTerminate();
     }
 }

@@ -12,7 +12,7 @@ public class ActivityLifecycleCallbacksAdapter implements Application.ActivityLi
         this.callback = callback;
     }
 
-    public void destroy(Application application) {
+    public void unregister(Application application) {
         application.unregisterActivityLifecycleCallbacks(this);
     }
 

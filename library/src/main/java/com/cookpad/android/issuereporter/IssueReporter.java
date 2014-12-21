@@ -26,15 +26,15 @@ public class IssueReporter {
         this.activityLifecycleCallbacksAdapter = new ActivityLifecycleCallbacksAdapter(application, callback);
     }
 
-    public static synchronized void initialize(Application application, ReportMail reportMail) {
+    public static synchronized void start(Application application, ReportMail reportMail) {
         if (INSTANCE == null) {
             INSTANCE = new IssueReporter(application, reportMail);
         }
     }
 
-    public static synchronized void destroy(Application application) {
+    public static synchronized void stop(Application application) {
         if (INSTANCE != null) {
-            INSTANCE.activityLifecycleCallbacksAdapter.destroy(application);
+            INSTANCE.activityLifecycleCallbacksAdapter.unregister(application);
             INSTANCE = null;
         }
     }
