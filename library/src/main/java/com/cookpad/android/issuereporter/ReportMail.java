@@ -2,6 +2,7 @@ package com.cookpad.android.issuereporter;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 public class ReportMail implements Parcelable {
     private String email;
@@ -27,9 +28,9 @@ public class ReportMail implements Parcelable {
     }
 
     public static class Builder {
-        private String email;
-        private String subject;
-        private String body;
+        private String email = "";
+        private String subject = "";
+        private String body = "";
 
         public Builder email(String email) {
             this.email = email;
@@ -47,6 +48,9 @@ public class ReportMail implements Parcelable {
         }
 
         public ReportMail build() {
+            if (TextUtils.isEmpty(email)) {
+                throw new IllegalArgumentException("Email should not be empty");
+            }
             return new ReportMail(this);
         }
     }
