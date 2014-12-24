@@ -1,9 +1,10 @@
-package com.cookpad.android.issuereporter;
+package com.cookpad.android.issuereporter.sample;
 
 import android.app.Activity;
 import android.app.Application;
 import android.support.v4.app.FragmentActivity;
 
+import com.cookpad.android.issuereporter.ReportMail;
 import com.cookpad.android.issuereporter.fragment.IssueReporterFragment;
 
 public class IssueReporter {

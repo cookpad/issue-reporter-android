@@ -9,26 +9,18 @@ Click notification to report an issue that is include system informations and sc
 
 # Quick Start
 
-### Initialize and Destroy
-
-Call IssueReporter.initialize and IssueReporter.destroy in your application class.
-
 ```java
+// MainActivity.java
 @Override
-public void onCreate() {
-    super.onCreate();
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
     ReportMail reportMail = new ReportMail.Builder()
             .email("support@example.com")
             .subject("Report an issue")
             .body(new SystemProfile(this).toString())
             .build();
-    IssueReporter.start(this, reportMail);
-}
-
-@Override
-public void onTerminate() {
-    IssueReporter.stop(this);
-    super.onTerminate();
+    IssueReporterFragment.apply(this, reportMail);
 }
 ```
-

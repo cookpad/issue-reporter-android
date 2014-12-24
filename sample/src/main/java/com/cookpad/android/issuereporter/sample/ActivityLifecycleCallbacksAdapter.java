@@ -1,4 +1,4 @@
-package com.cookpad.android.issuereporter;
+package com.cookpad.android.issuereporter.sample;
 
 import android.app.Activity;
 import android.app.Application;

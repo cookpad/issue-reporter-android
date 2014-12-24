@@ -2,7 +2,6 @@ package com.cookpad.android.issuereporter.sample;
 
 import android.app.Application;
 
-import com.cookpad.android.issuereporter.IssueReporter;
 import com.cookpad.android.issuereporter.ReportMail;
 import com.cookpad.android.issuereporter.SystemProfile;
 
