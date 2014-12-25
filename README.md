@@ -1,4 +1,4 @@
-Issue reporter
+Issue Reporter
 ============
 
 This library provide issue report feature to your app.
@@ -7,17 +7,20 @@ Click notification to report an issue that is include system informations and sc
 
 <img src="./static/issue-reporter.gif" width="400dp"/>
 
-# Quick start
+# Quick Start
 
-### MainActivity.java
 ```java
+// MainActivity.java
 @Override
 protected void onCreate(Bundle savedInstanceState) {
-  super.onCreate(savedInstanceState);
-  setContentView(R.layout.activity_main);
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
 
-  String mailAddress = "support@example.com";
-  String subject = "Report an issue";
-  IssueReporterFragment.apply(this, mailAddress, subject);
+    ReportMail reportMail = new ReportMail.Builder()
+            .email("support@example.com")
+            .subject("Report an issue")
+            .body(new SystemProfile(this).toString())
+            .build();
+    IssueReporterFragment.apply(this, reportMail);
 }
 ```
