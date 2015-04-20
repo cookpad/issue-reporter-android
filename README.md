@@ -35,7 +35,7 @@ protected void onCreate(Bundle savedInstanceState) {
                 android:exported="false">
             <meta-data
                     android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/filepaths"/>
+                    android:resource="@xml/issuereporter_filepaths"/>
         </provider>
 </application>
 ```
