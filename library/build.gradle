@@ -7,6 +7,8 @@ android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
+    resourcePrefix 'issuereporter_'
+
     defaultConfig {
         minSdkVersion 8
         targetSdkVersion 22

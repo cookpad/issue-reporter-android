@@ -28,14 +28,14 @@ public class ReportNotification {
 
     private static Notification buildNotification(Context context, PendingIntent pendingIntent) {
         String applicationName = Utils.getApplicationName(context).toString();
-        String title = context.getResources().getString(R.string.notification_title);
-        String description = context.getResources().getString(R.string.notification_description, applicationName);
+        String title = context.getResources().getString(R.string.issuereporter_notification_title);
+        String description = context.getResources().getString(R.string.issuereporter_notification_description, applicationName);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setTicker(title);
         builder.setContentTitle(title);
         builder.setContentText(description);
-        builder.setSmallIcon(R.drawable.notification);
+        builder.setSmallIcon(R.drawable.issuereporter_notification);
         builder.setContentIntent(pendingIntent);
         return builder.build();
     }

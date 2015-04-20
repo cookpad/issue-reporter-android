@@ -24,3 +24,18 @@ protected void onCreate(Bundle savedInstanceState) {
     IssueReporterFragment.apply(this, reportMail);
 }
 ```
+
+```xml
+<!-- in AndroidManifest.xml -->
+<application>
+        <provider
+                android:name="android.support.v4.content.FileProvider"
+                android:authorities="${applicationId}.issuereporter.fileprovider"
+                android:grantUriPermissions="true"
+                android:exported="false">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/filepaths"/>
+        </provider>
+</application>
+```
