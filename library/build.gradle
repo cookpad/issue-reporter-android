@@ -1,11 +1,13 @@
 apply plugin: 'com.android.library'
 
 def VERSION_CODE = 1
-def VERSION_NAME = '1.0.2'
+def VERSION_NAME = '2.0.0'
 
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
+
+    resourcePrefix 'issuereporter_'
 
     defaultConfig {
         minSdkVersion 8

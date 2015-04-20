@@ -109,14 +109,14 @@ public class IssueReporterFragment extends BaseFragment {
             try {
                 takeScreenshotAndSend();
             } catch (IOException e) {
-                Toast.makeText(getActivity(), R.string.failed_to_take_screenshot,
+                Toast.makeText(getActivity(), R.string.issuereporter_failed_to_take_screenshot,
                         Toast.LENGTH_SHORT).show();
             }
         }
     };
 
     private void takeScreenshotAndSend() throws IOException {
-        ProgressDialogFragment.show(getActivity(), R.string.wait_a_moment);
+        ProgressDialogFragment.show(getActivity(), R.string.issuereporter_wait_a_moment);
         new ScreenshotTask(getActivity(), new ScreenshotTask.Callback() {
             @Override
             public void onTakeScreenshot(File bitmapFile) {
@@ -133,7 +133,7 @@ public class IssueReporterFragment extends BaseFragment {
             public void onCatchIOException(IOException e) {
                 ProgressDialogFragment.dismiss(getActivity());
 
-                Toast.makeText(getActivity(), R.string.failed_to_take_screenshot,
+                Toast.makeText(getActivity(), R.string.issuereporter_failed_to_take_screenshot,
                         Toast.LENGTH_SHORT).show();
             }
         }).execute();
