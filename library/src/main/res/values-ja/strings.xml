@@ -1,6 +1,6 @@
 <resources>
     <string name="issuereporter_notification_title">不具合を報告する</string>
-    <string name="issuereporter_notification_description">この通知を押すと%1$sの不具合を報告できます</string>
+    <string name="issuereporter_notification_description">%1$sの不具合を報告できます</string>
     <string name="issuereporter_failed_to_take_screenshot">スクリーンショットの撮影に失敗しました</string>
     <string name="issuereporter_wait_a_moment">少々お待ちください</string>
 </resources>

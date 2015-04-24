@@ -1,6 +1,6 @@
 <resources>
     <string name="issuereporter_notification_title">Report an issue</string>
-    <string name="issuereporter_notification_description">Press the notification to report an issue</string>
+    <string name="issuereporter_notification_description">You can report issues for %1$s</string>
     <string name="issuereporter_failed_to_take_screenshot">Failed to take screenshot</string>
     <string name="issuereporter_wait_a_moment">Wait a moment</string>
 </resources>
