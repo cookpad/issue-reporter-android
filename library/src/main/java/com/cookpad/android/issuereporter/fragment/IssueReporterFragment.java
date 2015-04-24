@@ -10,9 +10,12 @@ import com.cookpad.android.issuereporter.task.ScreenshotTask;
 import com.cookpad.android.issuereporter.util.IntentUtils;
 
 import android.content.ComponentName;
+import android.content.ContentProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
+import android.content.pm.ProviderInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -27,6 +30,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class IssueReporterFragment extends BaseFragment {
+
     public static final String EXTRA_REPORT = "extra_report";
 
     private static final String FRAGMENT_TAG = IssueReporterFragment.class.getName();
@@ -121,9 +125,12 @@ public class IssueReporterFragment extends BaseFragment {
             @Override
             public void onTakeScreenshot(File bitmapFile) {
                 FragmentActivity activity = getActivity();
+                if (activity == null) {
+                    return;
+                }
 
                 ProgressDialogFragment.dismiss(activity);
-                String authority = "com.cookpad.android.issuereporter.fileprovider";
+                String authority = getAuthority(activity, FileProvider.class);
                 Uri bitmapUri = FileProvider.getUriForFile(activity, authority, bitmapFile);
 
                 IntentUtils.sendMail(getActivity(), reportMail, bitmapUri);
@@ -139,4 +146,14 @@ public class IssueReporterFragment extends BaseFragment {
         }).execute();
     }
 
+    private String getAuthority(Context context, Class<? extends ContentProvider> providerClass) {
+        PackageManager manager = context.getApplicationContext().getPackageManager();
+        try {
+            ProviderInfo providerInfo = manager.getProviderInfo(
+                    new ComponentName(context, providerClass), PackageManager.GET_META_DATA);
+            return providerInfo.authority;
+        } catch (PackageManager.NameNotFoundException e) {
+            throw new IllegalStateException(e);
+        }
+    }
 }
