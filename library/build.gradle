@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
-apply plugin: 'me.tatarka.retrolambda'
 
 def VERSION_CODE = 1
 def VERSION_NAME = '2.1.0'
