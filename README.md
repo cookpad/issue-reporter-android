@@ -46,6 +46,5 @@ protected void onCreate(Bundle savedInstanceState) {
 
 1. create [bintray](https://bintray.com/) account
 2. get API_KEY from your profile edit page
-3. `./gradlew clean build bintrayUpload -PbintrayUser=[your account name] -PbintrayKey=[your api key] -PdryRun=true`
-4. change to `-PdryRun=false`
-5. `./gradlew releng`
+3. `./gradlew clean build bintrayUpload -PbintrayUser=[your account name] -PbintrayKey=[your api key] -PdryRun=false`
+4. `./gradlew releng`
