@@ -39,3 +39,12 @@ protected void onCreate(Bundle savedInstanceState) {
         </provider>
 </application>
 ```
+
+# For Developers
+
+## How to publish for jcenter
+
+1. create [bintray](https://bintray.com/) account
+2. get API_KEY from your profile edit page
+3. `./gradlew clean build bintrayUpload -PbintrayUser=[your account name] -PbintrayKey=[your api key] -PdryRun=false`
+4. `./gradlew releng`
