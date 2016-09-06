@@ -65,7 +65,7 @@ task 'releng' << {
     def timestamp = new Date().format("yyyyMMddHHmm")
     def tag = "v${android.defaultConfig.versionName}-${timestamp}"
 
-    println "[releng] makeing a release engineering for $tag (${git('rev-parse HEAD').trim()}))"
+    println "[releng] making a release engineering for $tag (${git('rev-parse HEAD').trim()}))"
 
     println "[releng] git tag $tag"
     git "tag $tag"
