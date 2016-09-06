@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'me.tatarka.retrolambda'
 
 def VERSION_CODE = 1
 def VERSION_NAME = '2.1.0'
@@ -29,7 +30,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
-    
+
     android {
         lintOptions {
             abortOnError false
@@ -50,4 +51,26 @@ publish {
     publishVersion = VERSION_NAME
     desc = 'A gradle plugin to report android application issue'
     website = 'https://github.com/cookpad/issue-reporter-android'
+}
+
+//releng
+def git(String command) {
+    def proc = ["sh", "-c", "cd ${project.rootDir} ; git ${command}"].execute()
+    if (proc.waitFor() != 0) {
+        throw new GradleException(proc.err.text.trim())
+    }
+    return proc.in.text;
+}
+
+task 'releng' << {
+    def timestamp = new Date().format("yyyyMMddHHmm")
+    def tag = "v${android.defaultConfig.versionName}-${timestamp}"
+
+    println "[releng] makeing a release engineering for $tag (${git('rev-parse HEAD').trim()}))"
+
+    println "[releng] git tag $tag"
+    git "tag $tag"
+
+    println "[releng] git push origin $tag"
+    git "push origin $tag"
 }
